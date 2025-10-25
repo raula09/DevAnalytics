@@ -2,7 +2,7 @@
   "name": "devanalytics",
   "displayName": "DevAnalytics",
   "description": "Privacy-friendly local analytics with a React dashboard.",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "publisher": "RaulAlazovi069",
   "repository": {
     "type": "git",
@@ -11,9 +11,10 @@
   "engines": {
     "vscode": "^1.105.0"
   },
-  "categories": ["Other"],
-"icon": "icon.png",
-
+  "categories": [
+    "Other"
+  ],
+  "icon": "icon.png",
   "activationEvents": [
     "onStartupFinished",
     "onCommand:devanalytics.showDashboard",
@@ -23,9 +24,18 @@
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
-      { "command": "devanalytics.showDashboard", "title": "DevAnalytics: Show Dashboard" },
-      { "command": "devanalytics.exportData", "title": "DevAnalytics: Export Data (JSON)" },
-      { "command": "devanalytics.reset", "title": "DevAnalytics: Reset Data" }
+      {
+        "command": "devanalytics.showDashboard",
+        "title": "DevAnalytics: Show Dashboard"
+      },
+      {
+        "command": "devanalytics.exportData",
+        "title": "DevAnalytics: Export Data (JSON)"
+      },
+      {
+        "command": "devanalytics.reset",
+        "title": "DevAnalytics: Reset Data"
+      }
     ]
   },
   "scripts": {
