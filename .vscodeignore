@@ -1,12 +1,21 @@
+# Exclude dependencies and dev files
+node_modules
 webview-ui/node_modules
 webview-ui/src
-webview-ui/vite.config.ts
-webview-ui/tsconfig.json
-**/*.map
-**/.env*
 .vscode
 .git
 .gitignore
-node_modules
+.vite
+.cache
+dist
+**/*.map
+**/.env*
+**/*.ts
+**/*.tsx
+
+# Include only what’s needed
 !out/**
 !webview-ui/dist/**
+!icon.png
+!README.md
+!CHANGELOG.md
