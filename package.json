@@ -3,19 +3,33 @@
   "displayName": "DevAnalytics",
   "description": "Privacy-friendly local analytics with a React dashboard.",
   "version": "0.2.0",
-  "publisher": "your-publisher-id",
-  "engines": { "vscode": "^1.92.0" },
-
-  "categories": ["Other"],
-  "keywords": ["analytics", "react", "dashboard", "languages", "productivity"],
-  "icon": "media/icon.png",
-  "galleryBanner": { "color": "#111827", "theme": "dark" },
-
-  "repository": { "type": "git", "url": "https://github.com/raula09/DevAnalytics.git" },
-  "bugs": { "url": "https://github.com/<you>/<repo>/issues" },
-  "homepage": "https://github.com/<you>/<repo>#readme",
+  "publisher": "RaulAlazovi069",
+  "engines": {
+    "vscode": "^1.92.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "analytics",
+    "react",
+    "dashboard",
+    "languages",
+    "productivity"
+  ],
+  "galleryBanner": {
+    "color": "#111827",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/raula09/DevAnalytics.git"
+  },
+  "bugs": {
+    "url": "https://github.com/raula09/DevAnalytics.git/issues"
+  },
+  "homepage": "https://github.com/raula09/DevAnalytics.git/#readme",
   "license": "MIT",
-
   "activationEvents": [
     "onStartupFinished",
     "onCommand:devanalytics.showDashboard",
@@ -25,9 +39,18 @@
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
-      { "command": "devanalytics.showDashboard", "title": "DevAnalytics: Show Dashboard" },
-      { "command": "devanalytics.exportData", "title": "DevAnalytics: Export Data (JSON)" },
-      { "command": "devanalytics.reset", "title": "DevAnalytics: Reset Data" }
+      {
+        "command": "devanalytics.showDashboard",
+        "title": "DevAnalytics: Show Dashboard"
+      },
+      {
+        "command": "devanalytics.exportData",
+        "title": "DevAnalytics: Export Data (JSON)"
+      },
+      {
+        "command": "devanalytics.reset",
+        "title": "DevAnalytics: Reset Data"
+      }
     ],
     "configuration": {
       "type": "object",
@@ -58,7 +81,6 @@
       }
     }
   },
-
   "scripts": {
     "compile": "tsc -p .",
     "watch": "tsc -p . -w",
@@ -70,7 +92,6 @@
     "publish:minor": "npm version minor && vsce publish",
     "publish:major": "npm version major && vsce publish"
   },
-
   "devDependencies": {
     "@types/node": "^22.7.5",
     "@types/vscode": "^1.92.0",

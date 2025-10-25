@@ -50,12 +50,10 @@ class Analytics {
         if (!cfg.get('devAnalytics.enable'))
             return;
         const interval = Math.max(2, Math.min(60, cfg.get('devAnalytics.sampleIntervalSec') || 5));
-        // Track editor changes -> language
         this.lastActiveLanguage = vscode.window.activeTextEditor?.document.languageId;
         this.ctx.subscriptions.push(vscode.window.onDidChangeActiveTextEditor((ed) => {
             this.lastActiveLanguage = ed?.document.languageId;
         }));
-        // Track file opens
         this.ctx.subscriptions.push(vscode.workspace.onDidOpenTextDocument((doc) => {
             if (doc.languageId) {
                 const data = this.storage.load();
@@ -65,11 +63,9 @@ class Analytics {
                 this.storage.save(data);
             }
         }));
-        // Track keystrokes roughly
         this.ctx.subscriptions.push(vscode.workspace.onDidChangeTextDocument(() => {
             this.keystrokeThisTick += 1;
         }));
-        // Sample focused time
         this.timer = globalThis.setInterval(() => this.tick(interval), interval * 1000);
         this.ctx.subscriptions.push({ dispose: () => this.stop() });
     }
@@ -79,7 +75,6 @@ class Analytics {
         this.timer = undefined;
     }
     tick(interval) {
-        // Only count when the main window is focused AND a text editor is active
         if (!vscode.window.state.focused) {
             this.keystrokeThisTick = 0;
             return;
@@ -90,7 +85,6 @@ class Analytics {
             return;
         }
         const lang = editor.document.languageId || 'unknown';
-        // Optionally skip unknown/plaintext to avoid noise:
         const cfg = vscode.workspace.getConfiguration();
         const countUnknown = cfg.get('devAnalytics.countUnknown', false);
         if (!countUnknown && (lang === 'unknown' || lang === 'plaintext')) {

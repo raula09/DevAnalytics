@@ -70,7 +70,6 @@ class DashboardPanel {
         });
     }
     async initHtml() {
-        // Find the built JS bundle from Vite (e.g., assets/index-xxxxx.js)
         const dist = vscode.Uri.file(path.join(this.ctx.extensionPath, 'webview-ui', 'dist'));
         const assetsDir = vscode.Uri.joinPath(dist, 'assets');
         let bundleUri;
@@ -81,12 +80,10 @@ class DashboardPanel {
                 bundleUri = vscode.Uri.joinPath(assetsDir, js[0]);
         }
         catch {
-            // fallback: try dist/index.js (unlikely with Vite, but safe)
             bundleUri = vscode.Uri.joinPath(dist, 'index.js');
         }
         const scriptSrc = this.panel.webview.asWebviewUri(bundleUri);
         const csp = this.panel.webview.cspSource;
-        // Minimal HTML that mounts the React app
         this.panel.webview.html = `<!doctype html>
 <html>
   <head>
