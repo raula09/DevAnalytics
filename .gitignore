@@ -1,0 +1,8 @@
+# Ignore sensitive app settings
+server/appsettings.json
+server/appsettings.Development.json
+
+# VSCode and build outputs
+.vscode/
+bin/
+obj/
