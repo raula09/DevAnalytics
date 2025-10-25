@@ -1,0 +1,53 @@
+{
+  "name": "devanalytics",
+  "displayName": "DevAnalytics",
+  "version": "1.0.0",
+  "description": "VS Code analytics extension with backend sync.",
+  "publisher": "RaulAlazovi069",
+"engines": { "vscode": "^1.105.0" }
+,
+  "categories": ["Other"],
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:devanalytics.showDashboard"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "devanalytics.showDashboard", "title": "Show Analytics Dashboard" }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "DevAnalytics Settings",
+      "properties": {
+        "devAnalytics.enable": { "type": "boolean", "default": true },
+        "devAnalytics.telemetryEndpoint": {
+          "type": "string",
+          "default": "http://localhost:5000",
+          "description": "Backend API base URL."
+        },
+        "devAnalytics.authToken": {
+          "type": "string",
+          "default": "",
+          "description": "JWT auth token for backend sync."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "watch": "tsc -p . -w",
+    "ui:build": "cd webview-ui && npm ci && npm run build",
+    "build": "npm run ui:build && npm run compile",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.5",
+    "@types/vscode": "^1.92.0",
+    "typescript": "^5.6.3",
+    "vsce": "^2.15.0"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}

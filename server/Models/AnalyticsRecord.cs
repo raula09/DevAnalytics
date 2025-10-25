@@ -1,5 +1,4 @@
 namespace Server.Models;
-
 public class AnalyticsRecord
 {
     public string Id { get; set; } = Guid.NewGuid().ToString();

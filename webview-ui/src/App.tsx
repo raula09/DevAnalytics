@@ -6,19 +6,22 @@ import type { AnalyticsData } from './types';
 
 export default function App() {
   const [data, setData] = useState<AnalyticsData | null>(null);
+
   useEffect(() => {
-    const handler = (ev: MessageEvent) => {
-      const msg = (ev as MessageEvent).data;
+    const handler = (ev: MessageEvent<any>) => {
+      const msg = ev.data;
       if (msg?.type === 'data') setData(msg.payload as AnalyticsData);
     };
-    window.addEventListener('message', handler as EventListener);
+    window.addEventListener('message', handler);
     requestData();
-    return () => window.removeEventListener('message', handler as EventListener);
+    return () => window.removeEventListener('message', handler);
   }, []);
-  const byLang = Object.entries(data?.byLanguage || {}).sort((a, b) => (b[1].seconds - a[1].seconds));
-  const labels = byLang.map(([k]) => k);
-  const seconds = byLang.map(([, v]) => v.seconds);
+
+  const byLang = Object.entries(data?.byLanguage || {}) as [string, { seconds: number }][];
+  const labels = byLang.map(([key]) => key);
+  const seconds = byLang.map(([, value]) => value.seconds);
   const totalMin = ((data?.totals.seconds || 0) / 60).toFixed(1);
+
   return (
     <div style={{ padding: 16, color: 'var(--vscode-foreground)', background: 'var(--vscode-editor-background)' }}>
       <h2>DevAnalytics</h2>

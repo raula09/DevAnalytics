@@ -42,18 +42,16 @@ export class DashboardPanel {
   }
 
   private async initHtml() {
-   
     const dist = vscode.Uri.file(path.join(this.ctx.extensionPath, 'webview-ui', 'dist'));
-    const assetsDir = vscode.Uri.joinPath(dist, 'assets');
+    const assetsDir = vscode.Uri.file(path.join(dist.fsPath, 'assets'));
 
     let bundleUri: vscode.Uri | undefined;
     try {
       const entries = await vscode.workspace.fs.readDirectory(assetsDir);
       const js = entries.find(([name, type]) => type === vscode.FileType.File && name.endsWith('.js'));
-      if (js) bundleUri = vscode.Uri.joinPath(assetsDir, js[0]);
+      if (js) bundleUri = vscode.Uri.file(path.join(assetsDir.fsPath, js[0]));
     } catch {
-      
-      bundleUri = vscode.Uri.joinPath(dist, 'index.js');
+      bundleUri = vscode.Uri.file(path.join(dist.fsPath, 'index.js'));
     }
 
     const scriptSrc = this.panel.webview.asWebviewUri(bundleUri!);
