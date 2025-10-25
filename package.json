@@ -2,7 +2,7 @@
   "name": "devanalytics",
   "displayName": "DevAnalytics",
   "description": "Privacy-friendly local analytics with a React dashboard.",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "publisher": "RaulAlazovi069",
   "repository": {
     "type": "git",
