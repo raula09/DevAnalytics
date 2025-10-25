@@ -3,6 +3,10 @@ webview-ui/src
 webview-ui/vite.config.ts
 webview-ui/tsconfig.json
 **/*.map
-**/*.ts
-**/*.tsx
 **/.env*
+.vscode
+.git
+.gitignore
+node_modules
+!out/**
+!webview-ui/dist/**
