@@ -1,0 +1,80 @@
+{
+  "name": "devanalytics",
+  "displayName": "DevAnalytics",
+  "description": "Privacy-friendly local analytics with a React dashboard.",
+  "version": "0.2.0",
+  "publisher": "your-publisher-id",
+  "engines": { "vscode": "^1.92.0" },
+
+  "categories": ["Other"],
+  "keywords": ["analytics", "react", "dashboard", "languages", "productivity"],
+  "icon": "media/icon.png",
+  "galleryBanner": { "color": "#111827", "theme": "dark" },
+
+  "repository": { "type": "git", "url": "https://github.com/raula09/DevAnalytics.git" },
+  "bugs": { "url": "https://github.com/<you>/<repo>/issues" },
+  "homepage": "https://github.com/<you>/<repo>#readme",
+  "license": "MIT",
+
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:devanalytics.showDashboard",
+    "onCommand:devanalytics.exportData",
+    "onCommand:devanalytics.reset"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "devanalytics.showDashboard", "title": "DevAnalytics: Show Dashboard" },
+      { "command": "devanalytics.exportData", "title": "DevAnalytics: Export Data (JSON)" },
+      { "command": "devanalytics.reset", "title": "DevAnalytics: Reset Data" }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "DevAnalytics",
+      "properties": {
+        "devAnalytics.enable": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable anonymous local analytics. Opt-in."
+        },
+        "devAnalytics.sampleIntervalSec": {
+          "type": "number",
+          "default": 5,
+          "minimum": 2,
+          "maximum": 60,
+          "description": "Sampling interval (seconds) while VS Code is focused."
+        },
+        "devAnalytics.countUnknown": {
+          "type": "boolean",
+          "default": false,
+          "description": "Include time when no real text editor/language is active as 'unknown'."
+        },
+        "devAnalytics.telemetryEndpoint": {
+          "type": "string",
+          "default": "",
+          "description": "Optional: POST endpoint to send aggregated analytics."
+        }
+      }
+    }
+  },
+
+  "scripts": {
+    "compile": "tsc -p .",
+    "watch": "tsc -p . -w",
+    "ui:build": "cd webview-ui && npm ci && npm run build",
+    "ui:dev": "cd webview-ui && npm run dev",
+    "build": "npm run ui:build && npm run compile",
+    "package": "npm run build && vsce package",
+    "publish:patch": "npm version patch && vsce publish",
+    "publish:minor": "npm version minor && vsce publish",
+    "publish:major": "npm version major && vsce publish"
+  },
+
+  "devDependencies": {
+    "@types/node": "^22.7.5",
+    "@types/vscode": "^1.92.0",
+    "typescript": "^5.6.3",
+    "vsce": "^2.15.0"
+  }
+}

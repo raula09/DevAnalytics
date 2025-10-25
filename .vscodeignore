@@ -1,0 +1,8 @@
+webview-ui/node_modules
+webview-ui/src
+webview-ui/vite.config.ts
+webview-ui/tsconfig.json
+**/*.map
+**/*.ts
+**/*.tsx
+**/.env*
