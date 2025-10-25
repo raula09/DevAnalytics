@@ -1,31 +1,35 @@
-import React from "react";
+import React from "react"
 
 export default function StatCard({
-  icon,
   label,
   value,
+  accent = false
 }: {
-  icon: string;
-  label: string;
-  value: string | number;
+  label: string
+  value: string | number
+  accent?: boolean
 }) {
   return (
-    <div className="stat glass">
-      <div className="icon">{icon}</div>
-      <h3>{label}</h3>
-      <p>{value}</p>
-
+    <div className={`stat ${accent ? "accent" : ""}`}>
+      <span className="label">{label}</span>
+      <span className="value">{value}</span>
       <style>{`
-        .stat {
-          text-align:center;
-          padding:1rem 1.5rem;
-          transition:all 0.25s ease;
+        .stat{
+          display:flex;flex-direction:column;gap:.25rem;
+          background: linear-gradient(145deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+          border:1px solid rgba(255,255,255,.08);
+          border-radius:16px;padding:14px 16px;min-height:86px;
+          box-shadow: 0 8px 22px rgba(0,0,0,.22);
+          transition:.25s;
         }
-        .stat:hover { transform:translateY(-3px); background:rgba(255,255,255,0.08); }
-        .icon { font-size:1.5rem; margin-bottom:0.3rem; }
-        h3 { font-size:0.9rem; opacity:0.7; margin-bottom:0.2rem; }
-        p { font-size:1.4rem; font-weight:600; color:var(--accent); }
+        .stat:hover{transform: translateY(-3px)}
+        .label{font-size:.85rem;opacity:.7}
+        .value{font-size:1.55rem;font-weight:700;letter-spacing:.2px}
+        .accent{
+          background: linear-gradient(145deg, var(--accent), var(--accent-2));
+          color:#0b0b12;border-color:transparent;
+        }
       `}</style>
     </div>
-  );
+  )
 }

@@ -7,7 +7,6 @@ using Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// --- CORS ---
 builder.Services.AddCors(o => o.AddDefaultPolicy(p =>
     p.WithOrigins("http://localhost:5173")
      .AllowAnyHeader()
@@ -15,16 +14,13 @@ builder.Services.AddCors(o => o.AddDefaultPolicy(p =>
      .AllowCredentials()
 ));
 
-// --- MongoDB ---
 builder.Services.AddSingleton<IMongoClient>(_ =>
     new MongoClient(Environment.GetEnvironmentVariable("MONGODB_URI") ?? "mongodb://localhost:27017"));
 
-// --- Custom services ---
 builder.Services.AddSingleton<AnalyticsService>();
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddSingleton<JwtService>();
 
-// --- JWT Setup ---
 var jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET")
     ?? builder.Configuration["Jwt:Secret"]
     ?? throw new Exception("JWT_SECRET missing");
@@ -43,13 +39,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 
-// --- Swagger ---
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// --- Error Middleware ---
 app.Use(async (ctx, next) =>
 {
     try
@@ -65,7 +59,6 @@ app.Use(async (ctx, next) =>
     }
 });
 
-// --- Middleware Order ---
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -76,9 +69,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// --- Endpoints ---
-
-// 🟢 Auth
 app.MapPost("/api/auth/register", async (Server.DTOs.RegisterRequest r, UserService users, JwtService jwt) =>
 {
     var u = await users.CreateAsync(r.Email, r.Password);
@@ -96,7 +86,6 @@ app.MapPost("/api/auth/login", async (Server.DTOs.LoginRequest r, UserService us
     return Results.Ok(new Server.DTOs.AuthResponse { Token = t, Email = u.Email });
 });
 
-// 🟢 Analytics
 app.MapGet("/api/analytics/users", async (AnalyticsService s) => Results.Ok(await s.GetAllUsersAsync()));
 
 app.MapGet("/api/health", () => Results.Ok(new { ok = true, ts = DateTime.UtcNow }));
