@@ -21,6 +21,7 @@ export default function BarChart({ labels, values, title }: Props) {
       ctx.fillRect(x, y, barW, bh);
       ctx.font = '12px sans-serif'; ctx.fillText(labels[i], x, pad + chartH + 14);
     });
+    
   }, [labels, values, title]);
   return <canvas ref={canvasRef} width={640} height={320} />;
 }
