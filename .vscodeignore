@@ -1,7 +1,13 @@
-# Exclude dependencies and dev files
+# --- Exclude heavy/unrelated folders ---
 node_modules
+server
+webapp
 webview-ui/node_modules
 webview-ui/src
+webview-ui/package-lock.json
+webview-ui/package.json
+webview-ui/tsconfig.json
+webview-ui/vite.config.ts
 .vscode
 .git
 .gitignore
@@ -12,10 +18,12 @@ dist
 **/.env*
 **/*.ts
 **/*.tsx
+**/*.sh
 
-# Include only what’s needed
+# --- Include only what the extension actually needs ---
 !out/**
 !webview-ui/dist/**
 !icon.png
 !README.md
 !CHANGELOG.md
+!package.json
